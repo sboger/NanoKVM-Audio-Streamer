@@ -24,9 +24,6 @@ make
 
 This will create an executable file named `audio_streamer`.
 
-## Alternative
-
-Or try the binary included in this repo. It will work on a fresh install of https://github.com/scpcom/sophgo-sg200x-debian
 
 ## Running
 
