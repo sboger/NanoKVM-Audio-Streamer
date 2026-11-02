@@ -1,12 +1,25 @@
-CC=gcc
-CFLAGS=-O2 -Wall
-LDFLAGS=-lasound -lpthread
+CC      ?= cc
+CFLAGS  ?= -O2 -Wall -Wextra
+LDLIBS  += -lasound
 
-all: audio_streamer
+PREFIX  ?= /usr/local
+BINDIR  ?= $(PREFIX)/bin
 
-audio_streamer: audio_streamer.c
-	$(CC) $(CFLAGS) -o audio_streamer audio_streamer.c $(LDFLAGS)
-	strip audio_streamer
+BIN := audio_streamer
+SRC := audio_streamer.c
+
+.PHONY: all install uninstall clean
+
+all: $(BIN)
+
+$(BIN): $(SRC)
+	$(CC) $(CFLAGS) -o $@ $< $(LDLIBS)
+
+install: $(BIN)
+	install -D -m 0755 $(BIN) $(DESTDIR)$(BINDIR)/$(BIN)
+
+uninstall:
+	rm -f $(DESTDIR)$(BINDIR)/$(BIN)
 
 clean:
-	rm -f audio_streamer
+	rm -f $(BIN)

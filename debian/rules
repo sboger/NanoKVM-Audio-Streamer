@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+# The binary is installed through debian/*.install and the systemd unit is
+# picked up automatically by dh_installsystemd, so skip dh_auto_install.
+override_dh_auto_install:

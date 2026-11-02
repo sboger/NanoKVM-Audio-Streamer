@@ -1,0 +1,23 @@
+Source: nanokvm-audio-streamer
+Section: sound
+Priority: optional
+Maintainer: Steven Boger <sboger@gmail.com>
+Build-Depends: debhelper-compat (= 13), libasound2-dev
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Homepage: https://github.com/sboger/LicheeRV-Audio-Streamer
+Vcs-Git: https://github.com/sboger/LicheeRV-Audio-Streamer.git
+Vcs-Browser: https://github.com/sboger/LicheeRV-Audio-Streamer
+
+Package: nanokvm-audio-streamer
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: alsa-utils
+Description: HTTP audio streamer for the NanoKVM / LicheeRV Nano MEMS microphone
+ Captures the onboard MEMS microphone of a Sipeed NanoKVM (LicheeRV Nano)
+ and serves it to any HTTP client as a lossless 48 kHz mono WAV (LPCM)
+ stream. It runs as a systemd service, listens on port 8080 by default, and
+ exposes a small JSON health endpoint for monitoring.
+ .
+ The microphone hears the room around the KVM, not the attached host's HDMI
+ audio. The stream is unauthenticated: run it on a trusted LAN only.

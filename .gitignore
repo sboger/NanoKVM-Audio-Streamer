@@ -1,0 +1,20 @@
+# Build output
+audio_streamer
+
+# Debian packaging artifacts
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/nanokvm-audio-streamer/
+debian/nanokvm-audio-streamer.substvars
+debian/nanokvm-audio-streamer.debhelper.log
+*.deb
+*.build
+*.buildinfo
+*.changes
+*.dsc
+*.tar.xz
+
+# Editor / OS noise
+.DS_Store
+*.swp

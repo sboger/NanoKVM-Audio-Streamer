@@ -1,0 +1,7 @@
+# Options passed to /usr/bin/audio_streamer by
+# nanokvm-audio-streamer.service. Run "audio_streamer --help" for the full
+# list. Changes take effect after:
+#
+#   sudo systemctl restart nanokvm-audio-streamer
+#
+OPTIONS="--port 8080 --device hw:0,0 --rate 48000 --verbose"

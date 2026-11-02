@@ -1,0 +1,11 @@
+nanokvm-audio-streamer (1.0.0) trixie; urgency=medium
+
+  * Initial packaged release.
+  * Rewritten streamer: configurable port, bind address, ALSA device, rate,
+    channels and period; /healthz JSON endpoint; graceful SIGTERM/SIGINT
+    shutdown; SIGPIPE-safe client handling; overrun and suspend recovery.
+  * Ship a systemd service with hardening and /etc/default configuration.
+  * Add a manual page for audio_streamer(1).
+  * Add an example 15 s recording from a NanoKVM Lite MEMS microphone.
+
+ -- Steven Boger <sboger@gmail.com>  Mon, 02 Nov 2026 00:13:13 -0600

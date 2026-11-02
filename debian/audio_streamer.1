@@ -1,0 +1,93 @@
+.TH AUDIO_STREAMER 1 "2026-11-02" "nanokvm-audio-streamer 1.0.0" "User Commands"
+.SH NAME
+audio_streamer \- stream a NanoKVM / LicheeRV Nano MEMS microphone over HTTP
+.SH SYNOPSIS
+.B audio_streamer
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+.B audio_streamer
+captures mono 16-bit PCM from an ALSA capture device and serves it to any
+number of HTTP clients as a lossless WAV (LPCM) stream.
+.PP
+On the Sipeed NanoKVM (LicheeRV Nano) the onboard MEMS microphone is card 0,
+device 0 (\fIhw:0,0\fR), at 48 kHz mono. The microphone hears the room around
+the KVM, not the HDMI audio of the controlled host.
+.PP
+The stream is unauthenticated. Run it on a trusted network only.
+.SH OPTIONS
+.TP
+.BR \-p ", " \-\-port " " \fIN\fR
+TCP port to listen on (default 8080).
+.TP
+.BR \-a ", " \-\-address " " \fIA\fR
+IPv4 address to bind (default 0.0.0.0).
+.TP
+.BR \-D ", " \-\-device " " \fID\fR
+ALSA capture device (default hw:0,0). See \fBarecord \-l\fR.
+.TP
+.BR \-r ", " \-\-rate " " \fIN\fR
+Requested sample rate in Hz (default 48000). The nearest rate supported by
+the hardware is used and reported in the stream.
+.TP
+.BR \-c ", " \-\-channels " " \fIN\fR
+Channel count (default 1).
+.TP
+.BR \-b ", " \-\-period " " \fIN\fR
+ALSA period in milliseconds (default 20).
+.TP
+.BR \-d ", " \-\-daemon
+Detach and run in the background. Not needed under systemd.
+.TP
+.BR \-v ", " \-\-verbose
+Log connections, overruns and errors to standard error.
+.TP
+.BR \-V ", " \-\-version
+Print the version and exit.
+.TP
+.BR \-h ", " \-\-help
+Print usage and exit.
+.SH ENDPOINTS
+.TP
+.B /
+Returns an \fIaudio/wav\fR stream: an HTTP 200, a 44-byte WAV header with
+unknown length (0xFFFFFFFF), then continuous PCM.
+.TP
+.B /healthz
+Returns a JSON status document, for example:
+.RS
+.PP
+.nf
+{"status":"ok","device":"hw:0,0","rate":48000,"channels":1,
+ "clients":1,"served":3,"uptime_s":412}
+.fi
+.RE
+.SH EXAMPLES
+Listen in a browser:
+.PP
+.nf
+    http://192.168.1.27:8080/
+.fi
+.PP
+Capture ten seconds to a file:
+.PP
+.nf
+    ffmpeg \-i http://192.168.1.27:8080/ \-t 10 capture.wav
+.fi
+.PP
+Run on a different port with logging:
+.PP
+.nf
+    audio_streamer \-p 9090 \-v
+.fi
+.SH FILES
+.TP
+.I /etc/default/nanokvm-audio-streamer
+Options passed to the service through the \fBOPTIONS\fR variable.
+.SH SEE ALSO
+.BR arecord (1),
+.BR ffmpeg (1),
+.BR systemctl (1)
+.SH AUTHOR
+Steven Boger <sboger@gmail.com>
+.SH LICENSE
+GPL-3.0-or-later.

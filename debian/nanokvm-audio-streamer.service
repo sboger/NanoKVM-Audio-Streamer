@@ -1,0 +1,34 @@
+[Unit]
+Description=NanoKVM MEMS microphone HTTP audio streamer
+Documentation=https://github.com/sboger/LicheeRV-Audio-Streamer
+After=network-online.target sound.target
+Wants=network-online.target
+ConditionPathExists=/dev/snd
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/nanokvm-audio-streamer
+ExecStart=/usr/bin/audio_streamer $OPTIONS
+Restart=on-failure
+RestartSec=2s
+Nice=-5
+
+# Hardening: the streamer only needs the capture device and a TCP socket.
+DynamicUser=yes
+SupplementaryGroups=audio
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=no
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+
+[Install]
+WantedBy=multi-user.target
