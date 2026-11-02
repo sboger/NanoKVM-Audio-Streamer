@@ -9,6 +9,7 @@ debian/nanokvm-audio-streamer/
 debian/nanokvm-audio-streamer.substvars
 debian/nanokvm-audio-streamer.debhelper.log
 *.deb
+!dist/*.deb
 *.build
 *.buildinfo
 *.changes

@@ -35,9 +35,18 @@ served on port 8080, with no processing applied.
 
 ## Install (Debian package)
 
-Prebuilt packages are attached to
-[Releases](https://github.com/sboger/LicheeRV-Audio-Streamer/releases/latest).
-On the NanoKVM:
+A prebuilt riscv64 package is committed under
+[`dist/`](dist/nanokvm-audio-streamer_1.0.0_riscv64.deb) — download it
+straight from GitHub:
+
+```bash
+curl -LO https://github.com/sboger/LicheeRV-Audio-Streamer/raw/main/dist/nanokvm-audio-streamer_1.0.0_riscv64.deb
+sha256sum nanokvm-audio-streamer_1.0.0_riscv64.deb
+```
+
+`sha256: ba8fb897d7098da731da95e20a1973561c5ee61198542d85b44be7c4792455d9`
+
+Then install on the NanoKVM:
 
 ```bash
 sudo apt install ./nanokvm-audio-streamer_1.0.0_riscv64.deb
